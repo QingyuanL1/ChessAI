@@ -11,6 +11,7 @@ import sources.chess.static_env as senv
 from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.lookup_tables import Winner, ActionLabelsRed, flip_move
 from sources.AlphaZero.ZobristHash import get_zobrist_hash
+from sources.AlphaZero.MemoryManager import MemoryManager
 from time import time, sleep
 import gc 
 import sys
@@ -98,6 +99,9 @@ class Enhanced_AI_Player:
         # 哈希缓存：避免重复计算相同状态的哈希
         self.hash_cache = {}
         self.hash_cache_max_size = 10000
+        
+        # 内存管理器
+        self.memory_manager = MemoryManager(self)
         
         # 线程管理
         self.s_lock = Lock()
@@ -459,6 +463,10 @@ class Enhanced_AI_Player:
                 
         self.all_done.release()
         
+        # 自动内存管理
+        if hasattr(self, 'memory_manager'):
+            self.memory_manager.auto_memory_management()
+        
         policy, resign = self.calc_policy(state, turns, no_act)
         
         if resign:
@@ -560,4 +568,51 @@ class Enhanced_AI_Player:
         else:
             ret = np.power(policy, 1/tau)
             ret = ret / np.sum(ret)
-            return ret 
+            return ret
+    
+    # 内存管理接口
+    def get_memory_report(self) -> str:
+        """获取内存使用报告"""
+        if hasattr(self, 'memory_manager'):
+            return self.memory_manager.get_memory_summary()
+        return "内存管理器未初始化"
+    
+    def cleanup_memory(self, force: bool = False) -> dict:
+        """手动清理内存"""
+        if not hasattr(self, 'memory_manager'):
+            return {'error': '内存管理器未初始化'}
+        
+        results = {}
+        
+        # 清理搜索树
+        tree_result = self.memory_manager.tree_manager.cleanup_search_tree(force=force)
+        results['search_tree'] = tree_result
+        
+        # 清理缓存
+        cache_result = self.memory_manager.tree_manager.cleanup_caches()
+        results['caches'] = cache_result
+        
+        # 强制垃圾回收
+        gc.collect()
+        results['gc_collected'] = True
+        
+        # 记录清理后的内存状态
+        if hasattr(self.memory_manager, 'monitor'):
+            results['memory_after'] = self.memory_manager.monitor.record_memory_usage("manual_cleanup")
+        
+        return results
+    
+    def get_memory_stats(self) -> dict:
+        """获取内存统计信息"""
+        if not hasattr(self, 'memory_manager'):
+            return {'error': '内存管理器未初始化'}
+        
+        health = self.memory_manager.check_memory_health()
+        tree_stats = self.memory_manager.tree_manager.get_tree_stats()
+        
+        return {
+            'memory_health': health,
+            'tree_stats': tree_stats,
+            'hash_cache_size': len(getattr(self, 'hash_cache', {})),
+            'transposition_table_size': len(getattr(self.transposition_table, 'table', {})) if self.transposition_table else 0
+        } 
