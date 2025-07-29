@@ -1,0 +1,14 @@
+2024-06-21 18:34:15,804@sources.AlphaZero.ModelManager DEBUG # loading model from C:\Users\Orange\Desktop\Chess\ChessAI\data\model\model_best_config.json
+2024-06-21 18:34:16,735@sources.AlphaZero.ModelManager DEBUG # loaded model digest = 8ff9c9fe44fce19cb4116298a2acd2cc34ac8e6f80789c4b33a2d95251ca01e8
+2024-06-21 18:34:16,900@sources.worker.TrainDataGenerater_win INFO # 自我博弈开始，请耐心等待....
+2024-06-21 18:34:37,652@concurrent.futures ERROR # exception calling callback for <Future at 0x23616ca89b0 state=finished raised BrokenProcessPool>
+Traceback (most recent call last):
+  File "C:\Users\Orange\.conda\envs\cczero\lib\concurrent\futures\_base.py", line 324, in _invoke_callbacks
+    callback(self)
+  File "C:\Users\Orange\Desktop\Chess\ChessAI\sources\worker\TrainDataGenerater_win.py", line 140, in recall_fn
+    rst, data = future.result()
+  File "C:\Users\Orange\.conda\envs\cczero\lib\concurrent\futures\_base.py", line 425, in result
+    return self.__get_result()
+  File "C:\Users\Orange\.conda\envs\cczero\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
