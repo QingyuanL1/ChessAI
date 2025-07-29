@@ -111,7 +111,12 @@ class PVE:
         }
 
     def TranslateMove(self, move):
-        return chr(int(move[0]) + ord('a')) + str(move[1]) + chr(int(move[2]) + ord('a')) + str(move[3])
+        if not move or len(str(move)) != 4 or not str(move).isdigit():
+            return "invalid"
+        try:
+            return chr(int(move[0]) + ord('a')) + str(move[1]) + chr(int(move[2]) + ord('a')) + str(move[3])
+        except (ValueError, IndexError):
+            return "invalid"
 
     def hittest(self, mouse_x, mouse_y, rect):
         '''检测鼠标点击事件'''
@@ -419,10 +424,13 @@ class PVE:
                         self.BsetMove.append(BookResult[i].move)
                     self.info_msg = '从历史局面获取最优走法:'
                     print("使用开局库:", str(BookResult[0].move))
-                    x0, y0, x1, y1 = BookHandler.Move2Point(BookResult[0].move)
-                    action = str(x0) + str(y0) + str(x1) + str(y1)
-                    self.history.append(action)
-                    self.moves_history.append(self.TranslateMove(action))
+                    if BookResult[0].move and len(str(BookResult[0].move)) >= 4:
+                        x0, y0, x1, y1 = BookHandler.Move2Point(BookResult[0].move)
+                        action = str(x0) + str(y0) + str(x1) + str(y1)
+                        self.history.append(action)
+                        self.moves_history.append(self.TranslateMove(action))
+                    else:
+                        return
                 elif self.config.resource.Use_EngineHelp:
                     action = Engine_Manager.get_uci_move(self.config.resource.engine_path,
                                                          self.moves_history,
@@ -433,16 +441,22 @@ class PVE:
                     self.BsetMove.append(action)
 
                     print("使用AI搜索: ", action)
-                    x0, y0, x1, y1 = BookHandler.Move2Point(action)
-                    action = str(x0) + str(y0) + str(x1) + str(y1)
-                    self.history.append(action)
-                    self.moves_history.append(self.TranslateMove(action))
+                    if action and action != "(none)" and len(action) >= 4:
+                        x0, y0, x1, y1 = BookHandler.Move2Point(action)
+                        action = str(x0) + str(y0) + str(x1) + str(y1)
+                        self.history.append(action)
+                        self.moves_history.append(self.TranslateMove(action))
+                    else:
+                        return
                 else:
                     self.BsetMove.append(action)
                     self.info_msg = "MCTS搜索的最优走法:"
                     print("使用MCTS搜索: ", action)
-                    self.history.append(action)
-                    self.moves_history.append(self.TranslateMove(action))
+                    if action and len(str(action)) == 4 and str(action).isdigit():
+                        self.history.append(action)
+                        self.moves_history.append(self.TranslateMove(action))
+                    else:
+                        return
                 if action is None:
                     return
                 if not self.config.resource.Use_EngineHelp:
@@ -458,6 +472,9 @@ class PVE:
                         logger.info(
                             f"move: {move_cn}-{move}, visit count: {action_state[0]}, Q_value: {action_state[1]:.3f}, Prior: {action_state[2]:.3f}")
                         self.mcts_moves[move_cn] = action_state
+                
+                if not action or len(str(action)) != 4 or not str(action).isdigit():
+                    return
                 x0, y0, x1, y1 = int(action[0]), int(action[1]), int(action[2]), int(action[3])
                 chessman_sprite = select_sprite_from_group(self.chessmans, x0, y0)
                 sprite_dest = select_sprite_from_group(self.chessmans, x1, y1)

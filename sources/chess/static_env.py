@@ -535,3 +535,63 @@ def get_legal_moves(state: str, board=None) -> List[str]:
 def evaluate(state: str) -> float:
     board = ChessBoard(state)
     return board.evaluate()
+
+def will_check_or_catch(from_state: str, to_state: str) -> bool:
+    try:
+        from_board = ChessBoard(from_state)
+        to_board = ChessBoard(to_state)
+        
+        from_result, from_check_move = from_board.get_game_result()
+        to_result, to_check_move = to_board.get_game_result()
+        
+        if to_check_move is not None:
+            return True
+        
+        from_red_king = from_black_king = None
+        to_red_king = to_black_king = None
+        
+        for y in range(10):
+            for x in range(9):
+                from_piece = from_board.get_piece(Position(x, y))
+                to_piece = to_board.get_piece(Position(x, y))
+                
+                if from_piece and from_piece.type == PieceType.KING:
+                    if from_piece.color == Color.RED:
+                        from_red_king = Position(x, y)
+                    else:
+                        from_black_king = Position(x, y)
+                        
+                if to_piece and to_piece.type == PieceType.KING:
+                    if to_piece.color == Color.RED:
+                        to_red_king = Position(x, y)
+                    else:
+                        to_black_king = Position(x, y)
+        
+        if not from_red_king or not from_black_king or not to_red_king or not to_black_king:
+            return False
+        
+        to_moves = to_board.get_legal_moves(Color.BLACK)
+        for move in to_moves:
+            if move.to_pos == to_red_king:
+                return True
+        
+        red_moves = to_board.get_legal_moves(Color.RED)
+        for move in red_moves:
+            if move.to_pos == to_black_king:
+                return True
+        
+        captured_value = 0
+        for y in range(10):
+            for x in range(9):
+                from_piece = from_board.get_piece(Position(x, y))
+                to_piece = to_board.get_piece(Position(x, y))
+                
+                if from_piece and not to_piece:
+                    captured_value += from_piece.value
+                elif from_piece and to_piece and from_piece.color != to_piece.color:
+                    captured_value += from_piece.value
+        
+        return captured_value > 1
+        
+    except Exception:
+        return False
