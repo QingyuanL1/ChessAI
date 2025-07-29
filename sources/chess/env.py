@@ -108,7 +108,7 @@ class ChessEnv:
                     j += 1
                 else:
                     j += int(letter)
-        return planes
+        return np.transpose(planes, (1, 2, 0))
 
     def save_records(self, filename):
         self.board.save_record(filename)

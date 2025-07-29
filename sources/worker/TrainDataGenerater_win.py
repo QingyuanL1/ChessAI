@@ -15,9 +15,9 @@ from random import random
 
 import sources.chess.static_env as senv
 from sources.AlphaZero.ModelManager import ModelManager
-from sources.AlphaZero.AI_Player import AI_Player, VisitState
+from sources.AlphaZero.Enhanced_AI_Player import Enhanced_AI_Player as AI_Player, EnhancedVisitState as VisitState
 from sources.AlphaZero.Predictor import Predictor
-from sources.config import Config
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.env import ChessEnv
 from sources.chess.lookup_tables import Winner, ActionLabelsRed, flip_policy, flip_move
 from sources.utils.dataReaderWriter import get_game_data_filenames, write_game_data_to_file

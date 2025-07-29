@@ -4,7 +4,8 @@ from datetime import datetime
 from glob import glob
 from logging import getLogger
 
-from sources.config import ResourceConfig
+from sources.config_enhanced import EnhancedConfig
+ResourceConfig = EnhancedConfig().resource
 
 logger = getLogger(__name__)
 

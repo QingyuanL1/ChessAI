@@ -3,7 +3,14 @@
     "allow": [
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git lfs:*)",
+      "Bash(git reset:*)",
+      "Bash(git rm:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }

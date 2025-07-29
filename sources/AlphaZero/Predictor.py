@@ -5,7 +5,7 @@ import os
 import numpy as np
 import shutil
 
-from sources.config import Config
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.utils.modelReaderWriter import load_best_model_weight, need_to_reload_best_model_weight
 from time import time
 from logging import getLogger

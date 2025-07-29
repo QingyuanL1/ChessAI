@@ -10,7 +10,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.regularizers import l2
 
 from sources.AlphaZero.Predictor import Predictor
-from sources.config import Config
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.lookup_tables import ActionLabelsRed, ActionLabelsBlack
 
 logger = getLogger(__name__)

@@ -20,8 +20,8 @@ import sources.chess.static_env as senv
 from sources.chess.chessboard import Chessboard
 from sources.chess.chessman import *
 from sources.AlphaZero.ModelManager import ModelManager
-from sources.AlphaZero.AI_Player import AI_Player, VisitState
-from sources.config import Config
+from sources.AlphaZero.Enhanced_AI_Player import Enhanced_AI_Player as AI_Player, EnhancedVisitState as VisitState
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.env import ChessEnv
 from sources.chess.lookup_tables import Winner, ActionLabelsRed, flip_move
 from sources.utils.modelReaderWriter import load_best_model_weight
@@ -282,10 +282,10 @@ class PVE:
                     if human_first == self.env.red_to_move:
                         mouse_x, mouse_y = pygame.mouse.get_pos()
                         # print(mouse_x, mouse_y)
-                        if self.hittest(mouse_x, mouse_y, (150, 600, 120, 50)):
+                        if self.hittest(mouse_x, mouse_y, (10, 95, 120, 40)):
                             print("悔棋!\n")
                             undo_move()
-                        elif self.hittest(mouse_x, mouse_y, (150, 700, 120, 50)):
+                        elif self.hittest(mouse_x, mouse_y, (140, 95, 140, 40)):
                             print("打印棋谱!")
                             self.env.board.print_record()
                             game_id = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -517,15 +517,15 @@ class PVE:
         button_spacing = 10
         
         # 悔棋按钮
-        undo_rect = pygame.Rect(10, button_y, 80, button_height)
+        undo_rect = pygame.Rect(10, button_y, 120, 40)
         self.draw_modern_button(widget_background, undo_rect, "悔棋", 14)
         
         # 打印棋谱按钮  
-        print_rect = pygame.Rect(100, button_y, 100, button_height)
+        print_rect = pygame.Rect(140, button_y, 140, 40)
         self.draw_modern_button(widget_background, print_rect, "打印棋谱", 14)
         
         # 时间信息
-        time_rect = pygame.Rect(210, button_y, 290, button_height)
+        time_rect = pygame.Rect(290, button_y, 250, 40)
         now = time.strftime('%Y-%m-%d %H:%M:%S')
         self.draw_info_panel(widget_background, time_rect, None, [f"📅 {now}"])
         

@@ -12,7 +12,8 @@ if _PATH_ not in sys.path:
 from logging import getLogger
 
 from sources.utils.logger import setup_logger
-from sources.config import Config, PVEConfig
+from sources.config_enhanced import EnhancedConfig as Config
+from sources.config import PVEConfig
 
 
 logger = getLogger(__name__)

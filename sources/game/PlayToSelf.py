@@ -9,8 +9,8 @@ import sources.chess.static_env as senv
 from sources.chess.chessboard import Chessboard
 from sources.chess.chessman import *
 from sources.AlphaZero.ModelManager import ModelManager
-from sources.AlphaZero.AI_Player import AI_Player, VisitState
-from sources.config import Config
+from sources.AlphaZero.Enhanced_AI_Player import Enhanced_AI_Player as AI_Player, EnhancedVisitState as VisitState
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.env import ChessEnv
 from sources.chess.lookup_tables import Winner, ActionLabelsRed, flip_move
 from sources.utils.modelReaderWriter import load_best_model_weight

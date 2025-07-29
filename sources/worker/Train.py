@@ -17,7 +17,7 @@ from threading import Thread
 
 import sources.chess.static_env as senv
 from sources.AlphaZero.ModelManager import ModelManager
-from sources.config import Config
+from sources.config_enhanced import EnhancedConfig as Config
 from sources.utils.dataReaderWriter import get_game_data_filenames, read_game_data_from_file
 from sources.utils.modelReaderWriter import load_best_model_weight, save_as_best_model
 from sources.utils.modelReaderWriter import need_to_reload_best_model_weight, save_as_next_generation_model, save_as_best_model
