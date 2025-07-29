@@ -10669,3 +10669,42 @@
 2025-07-29 22:01:54,381@sources.game.play INFO # state = rkemsmekr/9/1c7/p1p3p1p/9/4P4/P1P3P1P/4c1KC1/9/RKEMSME1R
 2025-07-29 22:02:26,908@sources.game.play INFO # state = rkemsmekr/9/4c4/p1p3p1p/9/4P4/P1P3P1P/4C1K2/9/RKEMSME1R
 2025-07-29 22:02:46,546@sources.game.play INFO # state = rkemsmekr/9/9/p1p3p1p/9/4P4/P1P3P1P/2K1c1K2/9/R1EMSME1R
+2025-07-29 22:10:47,847@sources.utils.modelReaderWriter DEBUG # start reload the best model if changed
+2025-07-29 22:10:47,920@sources.utils.modelReaderWriter DEBUG # the best model is not changed
+2025-07-29 22:18:30,647@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-29 22:18:30,814@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-29 22:18:30,814@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-29 22:18:30,814@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-29 22:18:30,814@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-29 22:18:31,210@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-29 22:18:31,963@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-29 22:18:32,301@__main__ INFO # AI move first : False
+2025-07-29 22:18:32,543@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-29 22:18:45,170@sources.game.play INFO # state = rkemsmekr/9/1c7/p1p1p1p1p/9/9/P1P1P1PcP/1C5C1/9/RKEMSMEKR
+2025-07-29 22:18:58,897@sources.game.play INFO # state = rkemsmekr/9/1c7/p1p1p1p1p/9/9/P1P1c1P1P/1C4KC1/9/RKEMSME1R
+2025-07-29 22:19:29,724@sources.game.play INFO # state = rkemsmekr/9/9/p1p1p1p1p/9/9/P1P1K1P1P/1C5C1/9/RcEMSME1R
+2025-07-29 22:20:29,165@sources.game.play INFO # state = r1emsmekr/9/2k6/p1p1p1p1p/9/9/P1P1K1P1P/1C5C1/9/1REMSME1R
+2025-07-29 22:21:01,880@sources.game.play INFO # state = r1emsmekr/9/2k6/p3p1p1p/2pK5/9/P1P3P1P/1C5C1/9/1REMSME1R
+2025-07-29 22:21:33,771@sources.game.play INFO # state = 1remsmekr/9/2K6/p3p1p1p/2p6/9/P1P3P1P/1C5C1/9/1REMSME1R
+2025-07-29 22:22:11,747@sources.game.play INFO # state = 2emsmekr/9/2K6/p3p1p1p/2p6/9/P1P3P1P/4C2C1/9/1rEMSME1R
+2025-07-29 22:22:11,931@sources.game.play INFO # Winner is Winner.black !!!
+2025-07-29 22:34:11,375@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-29 22:34:11,763@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-29 22:34:11,763@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-29 22:34:11,763@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-29 22:34:11,763@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-29 22:34:12,645@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-29 22:34:13,860@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-29 22:34:14,449@__main__ INFO # AI move first : False
+2025-07-29 22:34:14,745@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-29 22:34:36,101@sources.game.play INFO # state = rkemsmekr/9/4c2c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RKEMSMEKR
+2025-07-29 22:34:44,606@sources.game.play INFO # state = r1emsmekr/9/2k1c2c1/p1p1p1p1p/9/9/P1P1P1P1P/1CK4C1/9/R1EMSMEKR
+2025-07-29 22:34:51,441@sources.game.play INFO # state = 1remsmekr/9/2k1c2c1/p1p1p1p1p/9/2P6/P3P1P1P/1CK4C1/9/R1EMSMEKR
+2025-07-29 22:35:00,811@sources.game.play INFO # state = 2emsmekr/9/2k1c2c1/p1p1p1p1p/9/2P6/P3P1P1P/1rK4C1/9/1REMSMEKR
+2025-07-29 22:36:00,103@sources.game.play INFO # state = 2emsmekr/9/2k1c4/p1p1p1p1p/7c1/2P6/P3P1P1P/1CK6/9/1REMSMEKR
+2025-07-29 22:36:21,748@sources.game.play INFO # state = 2emsmekr/9/2k1c4/p1p1p1p1p/4c4/2P6/P3P1P1P/1CK3K2/9/1REMSME1R
+2025-07-29 22:36:47,787@sources.game.play INFO # state = 2emsmekr/9/2k1c4/p1p1p1p1p/6c2/2P6/P3P1P1P/1CK3K2/4M4/1REMS1E1R
+2025-07-29 22:37:10,993@sources.game.play INFO # state = 2emsmekr/9/2k1c4/p1p1p1p1p/9/2P3P2/P3P3P/1CK3c2/4M4/1REMS1E1R
+2025-07-29 22:37:36,543@sources.game.play INFO # state = 2emsmekr/9/2k6/p1p1p1p1p/9/2P3P2/P3c3P/2K3C2/4M4/1REMS1E1R
+2025-07-29 22:38:01,122@sources.game.play INFO # state = 2emsmek1/8r/2k6/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/1REMS1E1R
+2025-07-29 22:38:27,495@sources.game.play INFO # state = 2emsmek1/5r3/2k6/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/1REMS1ER1
