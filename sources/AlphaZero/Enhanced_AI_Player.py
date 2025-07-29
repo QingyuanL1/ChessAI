@@ -10,6 +10,7 @@ import numpy as np
 import sources.chess.static_env as senv
 from sources.config_enhanced import EnhancedConfig as Config
 from sources.chess.lookup_tables import Winner, ActionLabelsRed, flip_move
+from sources.AlphaZero.ZobristHash import get_zobrist_hash
 from time import time, sleep
 import gc 
 import sys
@@ -92,7 +93,11 @@ class Enhanced_AI_Player:
         tt_size = self.play_config.transposition_table_size if hasattr(self.play_config, 'transposition_table_size') else 1000000
         self.transposition_table = TranspositionTable(max_size=tt_size) if hasattr(self.play_config, 'enable_transposition_table') and self.play_config.enable_transposition_table else None
         self.rave_table = defaultdict(lambda: defaultdict(list))
-        self.zobrist_table = self._init_zobrist_table()
+        self.zobrist_hash = get_zobrist_hash()
+        
+        # 哈希缓存：避免重复计算相同状态的哈希
+        self.hash_cache = {}
+        self.hash_cache_max_size = 10000
         
         # 线程管理
         self.s_lock = Lock()
@@ -112,24 +117,65 @@ class Enhanced_AI_Player:
         self.executor.submit(self.receiver)
         self.executor.submit(self.sender)
 
-    def _init_zobrist_table(self):
-        """初始化Zobrist哈希表"""
-        np.random.seed(42)  # 固定种子确保一致性
-        table = {}
-        # 为每个位置每种棋子生成随机数
-        for row in range(10):
-            for col in range(9):
-                for piece_type in range(14):  # 14种不同的棋子状态
-                    table[(row, col, piece_type)] = np.random.randint(0, 2**63)
-        return table
-
     def compute_zobrist_hash(self, state):
-        """计算局面的Zobrist哈希值"""
-        hash_val = 0
-        # 这里需要根据实际的state格式来实现
-        # 简化版本，实际需要根据棋盘编码格式调整
-        state_bytes = state.encode() if isinstance(state, str) else str(state).encode()
-        return int(hashlib.md5(state_bytes).hexdigest()[:16], 16)
+        """计算局面的Zobrist哈希值 - 带缓存优化"""
+        # 首先检查缓存
+        if state in self.hash_cache:
+            return self.hash_cache[state]
+        
+        # 计算哈希值
+        hash_val = self.zobrist_hash.compute_hash_from_state(state)
+        
+        # 存入缓存（如果缓存未满）
+        if len(self.hash_cache) < self.hash_cache_max_size:
+            self.hash_cache[state] = hash_val
+        elif len(self.hash_cache) >= self.hash_cache_max_size:
+            # 简单的缓存清理：清除一半
+            keys_to_remove = list(self.hash_cache.keys())[:len(self.hash_cache)//2]
+            for key in keys_to_remove:
+                del self.hash_cache[key]
+            self.hash_cache[state] = hash_val
+        
+        return hash_val
+    
+    def compute_incremental_hash(self, current_hash, current_state, move_str):
+        """增量计算哈希值 - 性能关键优化"""
+        try:
+            # 首先生成新状态，检查是否已缓存
+            new_state = senv.step(current_state, move_str)
+            if new_state in self.hash_cache:
+                return self.hash_cache[new_state]
+            
+            # 解析走法进行增量更新
+            from_x, from_y = int(move_str[0]), int(move_str[1])
+            to_x, to_y = int(move_str[2]), int(move_str[3])
+            
+            # 获取当前棋盘状态
+            board = senv.state_to_board(current_state)
+            
+            # 获取移动的棋子和被吃的棋子
+            moving_piece = board[from_y][from_x]
+            captured_piece = board[to_y][to_x] if board[to_y][to_x] != '.' else None
+            
+            from sources.chess.static_env import Position
+            from_pos = Position(from_x, from_y)
+            to_pos = Position(to_x, to_y)
+            
+            # 使用增量更新
+            new_hash = self.zobrist_hash.update_hash_for_move(
+                current_hash, from_pos, to_pos, moving_piece, captured_piece
+            )
+            
+            # 缓存结果
+            if len(self.hash_cache) < self.hash_cache_max_size:
+                self.hash_cache[new_state] = new_hash
+            
+            return new_hash
+            
+        except Exception:
+            # 如果增量更新失败，回退到完整计算
+            new_state = senv.step(current_state, move_str)
+            return self.compute_zobrist_hash(new_state)
 
     def enhanced_select_action(self, state, is_root_node=False):
         """增强的UCB选择策略：UCB1-TUNED + RAVE"""
@@ -301,7 +347,11 @@ class Enhanced_AI_Player:
                 action_state.q = action_state.w / action_state.n
                 
                 history.append(sel_action)
-                state = senv.step(state, sel_action)
+                # 使用增量哈希更新提升性能
+                new_state = senv.step(state, sel_action)
+                new_zobrist_hash = self.compute_incremental_hash(zobrist_hash, state, sel_action)
+                zobrist_hash = new_zobrist_hash
+                state = new_state
                 history.append(state)
 
     def enhanced_update_tree(self, p, v, history, zobrist_hash=None):
