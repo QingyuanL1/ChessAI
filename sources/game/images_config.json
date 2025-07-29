@@ -1,0 +1,61 @@
+{
+  "themes": {
+    "default": {
+      "name": "默认主题",
+      "description": "经典的中国象棋棋子样式",
+      "board": "Board.GIF",
+      "pieces": {
+        "red": {
+          "rook": ["RR.GIF", "RRS.GIF"],
+          "knight": ["RN.GIF", "RNS.GIF"],
+          "cannon": ["RC.GIF", "RCS.GIF"],
+          "king": ["RK.GIF", "RKS.GIF"],
+          "elephant": ["RB.GIF", "RBS.GIF"],
+          "mandarin": ["RA.GIF", "RAS.GIF"],
+          "pawn": ["RP.GIF", "RPS.GIF"]
+        },
+        "black": {
+          "rook": ["BR.GIF", "BRS.GIF"],
+          "knight": ["BN.GIF", "BNS.GIF"],
+          "cannon": ["BC.GIF", "BCS.GIF"],
+          "king": ["BK.GIF", "BKS.GIF"],
+          "elephant": ["BB.GIF", "BBS.GIF"],
+          "mandarin": ["BA.GIF", "BAS.GIF"],
+          "pawn": ["BP.GIF", "BPS.GIF"]
+        }
+      }
+    },
+    "modern": {
+      "name": "现代主题",
+      "description": "现代化的棋子设计（示例）",
+      "board": "Board_Modern.PNG",
+      "pieces": {
+        "red": {
+          "rook": ["Modern_RR.PNG", "Modern_RRS.PNG"],
+          "knight": ["Modern_RN.PNG", "Modern_RNS.PNG"],
+          "cannon": ["Modern_RC.PNG", "Modern_RCS.PNG"],
+          "king": ["Modern_RK.PNG", "Modern_RKS.PNG"],
+          "elephant": ["Modern_RB.PNG", "Modern_RBS.PNG"],
+          "mandarin": ["Modern_RA.PNG", "Modern_RAS.PNG"],
+          "pawn": ["Modern_RP.PNG", "Modern_RPS.PNG"]
+        },
+        "black": {
+          "rook": ["Modern_BR.PNG", "Modern_BRS.PNG"],
+          "knight": ["Modern_BN.PNG", "Modern_BNS.PNG"],
+          "cannon": ["Modern_BC.PNG", "Modern_BCS.PNG"],
+          "king": ["Modern_BK.PNG", "Modern_BKS.PNG"],
+          "elephant": ["Modern_BB.PNG", "Modern_BBS.PNG"],
+          "mandarin": ["Modern_BA.PNG", "Modern_BAS.PNG"],
+          "pawn": ["Modern_BP.PNG", "Modern_BPS.PNG"]
+        }
+      }
+    }
+  },
+  "default_theme": "default",
+  "settings": {
+    "preload_themes": true,
+    "cache_scaled_images": true,
+    "supported_formats": [".gif", ".png", ".jpg", ".jpeg", ".bmp"],
+    "fallback_theme": "default"
+  }
+}

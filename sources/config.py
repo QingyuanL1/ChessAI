@@ -118,7 +118,7 @@ class ResourceConfig:
         self.model_best_config_path = os.path.join(self.model_dir, "model_best_config.json")
         self.model_best_weight_path = os.path.join(self.model_dir, "model_best_weight.h5")
         self.eleeye_path = os.path.join(self.model_dir, 'eleeye.exe')
-        self.engine_path = os.path.join(self.project_dir, 'data', 'Engine', 'pikafish-vnni512.exe')
+        self.engine_path = os.path.join(self.project_dir, 'data', 'Engine', 'pikafish')
 
         self.next_generation_model_dir = os.path.join(self.model_dir, "next_generation")
         self.next_generation_config_path = os.path.join(self.next_generation_model_dir, "next_generation_config.json")
@@ -141,8 +141,8 @@ class ResourceConfig:
 
         self.Use_Book = True # 是否使用库
         self.Out_Book_Step = -1 #脱库步数
-        # self.Book_Type = 'Local' # 使用本地库还是云库
-        self.Book_Type = 'Cloud'
+        self.Book_Type = 'Local' # 使用本地库还是云库
+        # self.Book_Type = 'Cloud'
         self.Cloud_Url = 'http://kaijuku.site:5001/sword/q/2286401259/p/1766487673/' # 云库地址，勿外传
 
         self.Use_EngineHelp = True # 使用引擎辅助计算
