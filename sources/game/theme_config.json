@@ -1,0 +1,95 @@
+{
+  "themes": {
+    "modern_dark": {
+      "name": "现代深色主题",
+      "colors": {
+        "bg_primary": [45, 52, 65],
+        "bg_secondary": [54, 63, 81],
+        "bg_panel": [64, 75, 96],
+        "accent": [255, 193, 7],
+        "accent_hover": [255, 215, 64],
+        "text_primary": [255, 255, 255],
+        "text_secondary": [204, 213, 233],
+        "text_muted": [156, 163, 175],
+        "success": [34, 197, 94],
+        "warning": [245, 158, 11],
+        "error": [239, 68, 68],
+        "info": [59, 130, 246],
+        "red_player": [220, 38, 127],
+        "black_player": [31, 41, 55],
+        "border": [75, 85, 99],
+        "shadow": [0, 0, 0, 100]
+      }
+    },
+    "classic_wood": {
+      "name": "经典木纹主题",
+      "colors": {
+        "bg_primary": [101, 67, 33],
+        "bg_secondary": [139, 92, 46],
+        "bg_panel": [160, 108, 67],
+        "accent": [255, 215, 0],
+        "accent_hover": [255, 235, 59],
+        "text_primary": [255, 248, 225],
+        "text_secondary": [255, 235, 205],
+        "text_muted": [205, 181, 155],
+        "success": [76, 175, 80],
+        "warning": [255, 152, 0],
+        "error": [244, 67, 54],
+        "info": [33, 150, 243],
+        "red_player": [183, 28, 28],
+        "black_player": [38, 50, 56],
+        "border": [121, 85, 72],
+        "shadow": [0, 0, 0, 120]
+      }
+    },
+    "royal_blue": {
+      "name": "皇家蓝主题",
+      "colors": {
+        "bg_primary": [25, 32, 56],
+        "bg_secondary": [32, 41, 71],
+        "bg_panel": [41, 52, 85],
+        "accent": [255, 193, 7],
+        "accent_hover": [255, 215, 64],
+        "text_primary": [255, 255, 255],
+        "text_secondary": [219, 234, 254],
+        "text_muted": [156, 163, 175],
+        "success": [34, 197, 94],
+        "warning": [245, 158, 11],
+        "error": [239, 68, 68],
+        "info": [96, 165, 250],
+        "red_player": [185, 28, 28],
+        "black_player": [15, 23, 42],
+        "border": [55, 65, 81],
+        "shadow": [0, 0, 0, 140]
+      }
+    },
+    "green_nature": {
+      "name": "自然绿色主题",
+      "colors": {
+        "bg_primary": [22, 46, 37],
+        "bg_secondary": [31, 63, 49],
+        "bg_panel": [42, 78, 62],
+        "accent": [120, 255, 120],
+        "accent_hover": [150, 255, 150],
+        "text_primary": [240, 253, 244],
+        "text_secondary": [209, 250, 229],
+        "text_muted": [156, 163, 175],
+        "success": [34, 197, 94],
+        "warning": [245, 158, 11],
+        "error": [239, 68, 68],
+        "info": [14, 165, 233],
+        "red_player": [185, 28, 28],
+        "black_player": [15, 41, 46],
+        "border": [52, 83, 65],
+        "shadow": [0, 0, 0, 100]
+      }
+    }
+  },
+  "current_theme": "modern_dark",
+  "settings": {
+    "enable_animations": true,
+    "show_coordinates": true,
+    "highlight_moves": true,
+    "sound_effects": true
+  }
+} 

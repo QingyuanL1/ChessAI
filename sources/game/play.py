@@ -89,6 +89,26 @@ class PVE:
         self.black_time_left = 2700
         self.current_timer = None  # 当前正在计时的一方
         self.last_move_time = None  # 上一次移动的时间
+        
+        # 美化主题色彩配置
+        self.colors = {
+            'bg_primary': (45, 52, 65),          # 深蓝灰背景
+            'bg_secondary': (54, 63, 81),        # 次级背景
+            'bg_panel': (64, 75, 96),            # 面板背景
+            'accent': (255, 193, 7),             # 金黄色强调
+            'accent_hover': (255, 215, 64),      # 强调色悬停
+            'text_primary': (255, 255, 255),     # 主要文字
+            'text_secondary': (204, 213, 233),   # 次要文字
+            'text_muted': (156, 163, 175),       # 静音文字
+            'success': (34, 197, 94),            # 成功绿色
+            'warning': (245, 158, 11),           # 警告橙色
+            'error': (239, 68, 68),              # 错误红色
+            'info': (59, 130, 246),              # 信息蓝色
+            'red_player': (220, 38, 127),        # 红方玩家
+            'black_player': (31, 41, 55),        # 黑方玩家
+            'border': (75, 85, 99),              # 边框色
+            'shadow': (0, 0, 0, 100),            # 阴影色
+        }
 
     def TranslateMove(self, move):
         return chr(int(move[0]) + ord('a')) + str(move[1]) + chr(int(move[2]) + ord('a')) + str(move[3])
@@ -111,45 +131,25 @@ class PVE:
     def init_screen(self):
         bestdepth = pygame.display.mode_ok([self.screen_width, self.screen_height], self.winstyle, 32)
         screen = pygame.display.set_mode([self.screen_width, self.screen_height], self.winstyle, bestdepth)
-        pygame.display.set_caption("SYNU AI Chess")
-        # create the background, tile the bgd image
+        pygame.display.set_caption("🏆 智慧象棋 AI - SYNU Chess Master")
+        
+        # 创建棋盘背景
         bgdtile = load_image('Board.GIF')
         bgdtile = pygame.transform.scale(bgdtile, (self.width, self.height))
         board_background = pygame.Surface([self.width, self.height])
         board_background.blit(bgdtile, (0, 0))
-        # widget_background = pygame.Surface([self.screen_width - self.width, self.height])
+        
+        # 在棋盘上添加美化边框
+        border_rect = pygame.Rect(0, 0, self.width, self.height)
+        pygame.draw.rect(board_background, self.colors['accent'], border_rect, 3)
+        
+        # 创建信息面板背景 - 使用渐变色
         widget_background = pygame.Surface([self.screen_width, self.screen_height - self.height])
-        # white_rect = Rect(0, 0, self.screen_width - self.width, self.height)
-        white_rect = Rect(0, 0, self.screen_width, self.screen_height - self.height)
-        widget_background.fill((255, 255, 255), white_rect)
-
-        # create text label
-        font_file = self.config.resource.font_path
-        font = pygame.font.Font(font_file, 16)
-        font_color = (0, 0, 0)
-        font_background = (255, 255, 255)
-        t = font.render("Record", True, font_color, font_background)
-        t_rect = t.get_rect()
-        t_rect.x = 10
-        t_rect.y = 10
-        widget_background.blit(t, t_rect)
-
-        # 显示红方倒计时
-        red_time_text = font.render(f"Red Time: {self.format_time(self.red_time_left)}", True, font_color, font_background)
-        red_time_rect = red_time_text.get_rect()
-        red_time_rect.x = 10
-        red_time_rect.y = 30
-        widget_background.blit(red_time_text, red_time_rect)
-
-        # 显示黑方倒计时
-        black_time_text = font.render(f"Black Time: {self.format_time(self.black_time_left)}", True, font_color, font_background)
-        black_time_rect = black_time_text.get_rect()
-        black_time_rect.x = 10
-        black_time_rect.y = 50
-        widget_background.blit(black_time_text, black_time_rect)
+        widget_rect = pygame.Rect(0, 0, self.screen_width, self.screen_height - self.height)
+        self.draw_gradient_rect(widget_background, widget_rect, 
+                               self.colors['bg_primary'], self.colors['bg_secondary'])
 
         screen.blit(board_background, (0, 0))
-        # screen.blit(widget_background, (self.width, 0))
         screen.blit(widget_background, (0, self.height))
 
         pygame.display.flip()
@@ -497,72 +497,88 @@ class PVE:
                 self.last_move_time = time.time()
 
     def draw_widget(self, screen, widget_background):
-        # white_rect = Rect(0, 0, self.screen_width - self.width, self.height)
-        white_rect = Rect(0, 0, self.screen_width, self.screen_height - self.height)
-        widget_background.fill((255, 255, 255), white_rect)
-        # pygame.draw.line(widget_background, (255, 0, 0), (10, 285), (self.screen_width - self.width - 10, 285))
-        # screen.blit(widget_background, (self.width, 0))
-        screen.blit(widget_background, (0, self.height))
-
-        self.draw_records(screen, widget_background)
-        if not self.config.resource.Use_EngineHelp:
-            self.draw_evaluation(screen, widget_background)
+        # 重新绘制渐变背景
+        widget_rect = pygame.Rect(0, 0, self.screen_width, self.screen_height - self.height)
+        self.draw_gradient_rect(widget_background, widget_rect, 
+                               self.colors['bg_primary'], self.colors['bg_secondary'])
+        
+        # 绘制计时器区域 - 使用美化样式
+        timer_width = 200
+        timer_height = 35
+        red_timer_rect = pygame.Rect(10, 10, timer_width, timer_height)
+        black_timer_rect = pygame.Rect(10, 50, timer_width, timer_height)
+        
+        is_red_active = self.current_timer == 'red'
+        is_black_active = self.current_timer == 'black'
+        
+        self.draw_timer_display(widget_background, red_timer_rect, self.red_time_left, "红方", is_red_active)
+        self.draw_timer_display(widget_background, black_timer_rect, self.black_time_left, "黑方", is_black_active)
+        
+        # AI信息面板
+        if self.config.resource.Use_EngineHelp:
+            info_rect = pygame.Rect(220, 10, 280, 75)
+            info_lines = []
+            if self.book_msg:
+                info_lines.append(self.book_msg)
+            if self.info_msg:
+                info_lines.append(self.info_msg)
+            for i, move in enumerate(self.BsetMove[:3]):
+                info_lines.append(f"{i+1}. {move}")
+            if self.BsetMove:
+                info_lines.append(f"执行: {self.BsetMove[0]}")
+            
+            self.draw_info_panel(widget_background, info_rect, "🧠 AI 分析", info_lines)
         else:
-            self.draw_label(screen, widget_background, '--------------INFO-------------', 0, 14, self.screen_width - 240)
-            self.draw_label(screen, widget_background, self.book_msg, 18, 14, self.screen_width - 240)
-            self.draw_label(screen, widget_background, self.info_msg, 36, 14, self.screen_width - 240)
-            for i in range(min(len(self.BsetMove), 3)):
-                self.draw_label(screen, widget_background, str(i) + ' :    ' + self.BsetMove[i], 55 + i * 18, 14, self.screen_width - 240)
-            if len(self.BsetMove) > 0:
-                self.draw_label(screen, widget_background, '执行: ' + self.BsetMove[0], 55 + 3 * 18, 14, self.screen_width - 240)
-        self.draw_undo_button(screen, widget_background)
-        nowDate, nowTime = time.strftime('%Y-%m-%d %H:%M:%S').split(' ')
-        self.draw_label(screen, widget_background, "当前时间:", 70, 15, 140)
-        self.draw_label(screen, widget_background, nowDate, 70, 15, 140)
-        self.draw_label(screen, widget_background, nowTime, 90, 15, 140)
-        self.draw_label(screen, widget_background, "打印棋谱", 120, 15, 150)
-
-        # 显示红方倒计时
-        font_file = self.config.resource.font_path
-        font = pygame.font.Font(font_file, 16)
-        font_color = (0, 0, 0)
-        font_background = (255, 255, 255)
-        red_time_text = font.render(f"Red Time: {self.format_time(self.red_time_left)}", True, font_color, font_background)
-        red_time_rect = red_time_text.get_rect()
-        red_time_rect.x = 10
-        red_time_rect.y = 30
-        widget_background.blit(red_time_text, red_time_rect)
-
-        # 显示黑方倒计时
-        black_time_text = font.render(f"Black Time: {self.format_time(self.black_time_left)}", True, font_color, font_background)
-        black_time_rect = black_time_text.get_rect()
-        black_time_rect.x = 10
-        black_time_rect.y = 50
-        widget_background.blit(black_time_text, black_time_rect)
-
+            # 绘制评估信息
+            eval_rect = pygame.Rect(220, 10, 280, 75)
+            self.draw_evaluation_panel(widget_background, eval_rect)
+        
+        # 控制按钮区域
+        button_y = 95
+        button_height = 30
+        button_spacing = 10
+        
+        # 悔棋按钮
+        undo_rect = pygame.Rect(10, button_y, 80, button_height)
+        self.draw_modern_button(widget_background, undo_rect, "悔棋", 14)
+        
+        # 打印棋谱按钮  
+        print_rect = pygame.Rect(100, button_y, 100, button_height)
+        self.draw_modern_button(widget_background, print_rect, "打印棋谱", 14)
+        
+        # 时间信息
+        time_rect = pygame.Rect(210, button_y, 290, button_height)
+        now = time.strftime('%Y-%m-%d %H:%M:%S')
+        self.draw_info_panel(widget_background, time_rect, None, [f"📅 {now}"])
+        
+        # 绘制对局记录
+        self.draw_records(screen, widget_background)
+        
         screen.blit(widget_background, (0, self.height))
 
     def draw_undo_button(self, screen, widget_background):
-        self.draw_label(screen, widget_background, "悔棋", 15, 20, 150)
+        """悔棋按钮已在draw_widget中重新实现"""
+        pass
 
     def draw_records(self, screen, widget_background):
-        text = 'Record'
-        self.draw_label(screen, widget_background, text, 0, 16, 10)
-        records = self.env.board.record.split('\n')
-        font_file = self.config.resource.font_path
-        font = pygame.font.Font(font_file, 12)
-        i = 0
-        for record in records[-self.disp_record_num:]:
-            self.rec_labels[i] = font.render(record, True, (0, 0, 0), (255, 255, 255))
-            t_rect = self.rec_labels[i].get_rect()
-            # t_rect.centerx = (self.screen_width - self.width) / 2
-            t_rect.y = 25 + i * 15
-            t_rect.x = 10
-            t_rect.width = self.screen_width - self.width
-            widget_background.blit(self.rec_labels[i], t_rect)
-            i += 1
-        # screen.blit(widget_background, (self.width, 0))
-        screen.blit(widget_background, (0, self.height))
+        """绘制对局记录 - 美化版本"""
+        record_rect = pygame.Rect(10, 135, 500, 0)  # 动态高度
+        
+        # 准备记录内容
+        record_lines = []
+        if hasattr(self.env.board, 'record') and self.env.board.record:
+            moves = self.env.board.record.strip().split('\n')
+            for i, move in enumerate(moves[-8:], 1):  # 显示最近8步
+                if move.strip():
+                    record_lines.append(f"{len(moves)-8+i}. {move.strip()}")
+        
+        if not record_lines:
+            record_lines = ["等待开局..."]
+        
+        # 动态计算面板高度
+        record_rect.height = max(60, len(record_lines) * 18 + 40)
+        
+        self.draw_info_panel(widget_background, record_rect, "📜 对局记录", record_lines)
 
     def draw_evaluation(self, screen, widget_background):
         # title_label = 'Info:'
@@ -588,24 +604,153 @@ class PVE:
             self.draw_label(screen, widget_background, label, 60 + i * 20, 12, self.screen_width - 50)
             i += 1
 
-    def draw_label(self, screen, widget_background, text, y, font_size, x=None):
+    def draw_label(self, screen, widget_background, text, y, font_size, x=None, color=None):
+        """绘制文本标签 - 支持新主题"""
+        if not text:
+            return
+            
         font_file = self.config.resource.font_path
         font = pygame.font.Font(font_file, font_size)
-        label = font.render(text, True, (0, 0, 0), (255, 255, 255))
+        
+        # 使用主题颜色
+        text_color = color if color else self.colors['text_primary']
+        label = font.render(str(text), True, text_color)
+        
         t_rect = label.get_rect()
         t_rect.y = y
-        if x != None:
+        if x is not None:
             t_rect.x = x
         else:
             t_rect.centerx = (self.screen_width - self.width) / 2
+        
         widget_background.blit(label, t_rect)
-        # screen.blit(widget_background, (self.width, 0))
         screen.blit(widget_background, (0, self.height))
 
     def format_time(self, seconds):
         minutes = int(seconds // 60)
         seconds = int(seconds % 60)
         return f"{minutes:02d}:{seconds:02d}"
+
+    def draw_gradient_rect(self, surface, rect, color1, color2, vertical=True):
+        """绘制渐变矩形"""
+        if vertical:
+            for y in range(rect.height):
+                ratio = y / rect.height
+                r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
+                g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
+                b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
+                pygame.draw.line(surface, (r, g, b), 
+                               (rect.x, rect.y + y), (rect.x + rect.width, rect.y + y))
+        else:
+            for x in range(rect.width):
+                ratio = x / rect.width
+                r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
+                g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
+                b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
+                pygame.draw.line(surface, (r, g, b), 
+                               (rect.x + x, rect.y), (rect.x + x, rect.y + rect.height))
+
+    def draw_rounded_rect(self, surface, rect, color, radius=10, border_color=None, border_width=0):
+        """绘制圆角矩形"""
+        if radius > min(rect.width, rect.height) // 2:
+            radius = min(rect.width, rect.height) // 2
+        
+        # 绘制主体矩形
+        inner_rect = pygame.Rect(rect.x + radius, rect.y, rect.width - 2*radius, rect.height)
+        pygame.draw.rect(surface, color, inner_rect)
+        
+        inner_rect = pygame.Rect(rect.x, rect.y + radius, rect.width, rect.height - 2*radius)
+        pygame.draw.rect(surface, color, inner_rect)
+        
+        # 绘制四个圆角
+        pygame.draw.circle(surface, color, (rect.x + radius, rect.y + radius), radius)
+        pygame.draw.circle(surface, color, (rect.x + rect.width - radius, rect.y + radius), radius)
+        pygame.draw.circle(surface, color, (rect.x + radius, rect.y + rect.height - radius), radius)
+        pygame.draw.circle(surface, color, (rect.x + rect.width - radius, rect.y + rect.height - radius), radius)
+        
+        # 绘制边框
+        if border_color and border_width > 0:
+            pygame.draw.rect(surface, border_color, rect, border_width, radius)
+
+    def draw_modern_button(self, surface, rect, text, font_size=16, active=False, hover=False):
+        """绘制现代化按钮"""
+        color = self.colors['accent'] if active else self.colors['bg_panel']
+        if hover:
+            color = self.colors['accent_hover']
+        
+        # 绘制阴影
+        shadow_rect = pygame.Rect(rect.x + 2, rect.y + 2, rect.width, rect.height)
+        self.draw_rounded_rect(surface, shadow_rect, (0, 0, 0, 50), 8)
+        
+        # 绘制按钮
+        self.draw_rounded_rect(surface, rect, color, 8, self.colors['border'], 1)
+        
+        # 绘制文字
+        font = pygame.font.Font(self.config.resource.font_path, font_size)
+        text_color = self.colors['bg_primary'] if active else self.colors['text_primary']
+        text_surface = font.render(text, True, text_color)
+        text_rect = text_surface.get_rect(center=rect.center)
+        surface.blit(text_surface, text_rect)
+
+    def draw_info_panel(self, surface, rect, title, content_lines, icon_color=None):
+        """绘制信息面板"""
+        # 绘制面板背景
+        self.draw_gradient_rect(surface, rect, self.colors['bg_panel'], self.colors['bg_secondary'])
+        self.draw_rounded_rect(surface, rect, (0, 0, 0, 0), 8, self.colors['border'], 1)
+        
+        y_offset = rect.y + 10
+        
+        # 绘制标题
+        if title:
+            font = pygame.font.Font(self.config.resource.font_path, 14)
+            title_surface = font.render(title, True, self.colors['accent'])
+            surface.blit(title_surface, (rect.x + 10, y_offset))
+            y_offset += 25
+        
+        # 绘制内容
+        font = pygame.font.Font(self.config.resource.font_path, 12)
+        for line in content_lines:
+            if line:
+                text_surface = font.render(str(line), True, self.colors['text_secondary'])
+                surface.blit(text_surface, (rect.x + 10, y_offset))
+            y_offset += 18
+
+    def draw_timer_display(self, surface, rect, time_left, player_name, is_active=False):
+        """绘制美化的计时器显示"""
+        # 选择颜色
+        bg_color = self.colors['red_player'] if player_name == "红方" else self.colors['black_player']
+        if is_active:
+            bg_color = tuple(min(255, c + 30) for c in bg_color)
+        
+        # 绘制计时器背景
+        self.draw_rounded_rect(surface, rect, bg_color, 8, self.colors['border'], 2)
+        
+        # 绘制时间文本
+        font = pygame.font.Font(self.config.resource.font_path, 16)
+        time_text = f"{player_name}: {self.format_time(time_left)}"
+        text_surface = font.render(time_text, True, self.colors['text_primary'])
+        text_rect = text_surface.get_rect(center=rect.center)
+        surface.blit(text_surface, text_rect)
+        
+        # 时间警告效果
+        if time_left < 300:  # 5分钟以下
+            warning_color = self.colors['warning'] if time_left > 60 else self.colors['error']
+            pygame.draw.rect(surface, warning_color, rect, 3, 8)
+
+    def draw_evaluation_panel(self, surface, rect):
+        """绘制评估面板"""
+        eval_lines = []
+        if hasattr(self, 'nn_value') and self.nn_value:
+            eval_lines.append(f"局面评估: {self.nn_value:.3f}")
+        if hasattr(self, 'mcts_moves') and self.mcts_moves:
+            eval_lines.append("MCTS 分析:")
+            for move, data in list(self.mcts_moves.items())[:3]:
+                eval_lines.append(f"{move}: {data[2]:.3f}")
+        
+        if not eval_lines:
+            eval_lines = ["等待AI分析..."]
+        
+        self.draw_info_panel(surface, rect, "📊 局面评估", eval_lines)
 
 
 class Chessman_Sprite(pygame.sprite.Sprite):
