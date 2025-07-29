@@ -131,7 +131,7 @@ class PVE:
     def init_screen(self):
         bestdepth = pygame.display.mode_ok([self.screen_width, self.screen_height], self.winstyle, 32)
         screen = pygame.display.set_mode([self.screen_width, self.screen_height], self.winstyle, bestdepth)
-        pygame.display.set_caption("🏆 智慧象棋 AI - SYNU Chess Master")
+        pygame.display.set_caption("🏆 智能象棋 AI - AlphaZero Chess")
         
         # 创建棋盘背景
         bgdtile = load_image('Board.GIF')
