@@ -3,9 +3,6 @@ import struct
 import os
 from functools import cmp_to_key
 
-import requests
-import re
-
 from sources.BookHandler.BookUtils import BookUtils
 import sqlite3
 
@@ -91,29 +88,7 @@ class BookData:
 class BookHandler:
     OBUtils = BookUtils()
 
-    @staticmethod
-    def get_cloud_move(fen, IsRedGo, cloudurl="http://www.chessdb.cn/chessdb.php"):
-        if not IsRedGo:
-            fen = BookHandler.MirrorFenRedBlack(fen)
-        fen = fen + (' w' if IsRedGo else ' b')
-        url = cloudurl + "?action=queryall&board={}".format(fen)
-        # print(url)
-        response = requests.get(url)
-        if "move" not in response.text:
-            # print("云库未收录当前棋谱")
-            return []
-        else:
-            reg = re.compile("move:([a-i0-9]{4}),score:(-?[0-9]+)")
-            all = reg.findall(response.text)
-            results = []
-            max_score = all[0][1]
-            for move, score in all:
-                if score == max_score:
-                    if IsRedGo:
-                        results.append(move)
-                    else:
-                        results.append(BookHandler.MirrorMoveLeftRight(move))
-            return results
+
     @staticmethod
     def MirrorFenRedBlack(fen):
         # rnbaka2r/9/1c2b1nc1/p1p1p1p1p/9/2P6/P3P1P1P/1CN4C1/9/R1BAKABNR w - - 0 1

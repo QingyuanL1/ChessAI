@@ -139,11 +139,8 @@ class ResourceConfig:
 
         self.font_path = os.path.join(self.project_dir, 'sources', 'game', 'font', 'font.ttc')
 
-        self.Use_Book = True # 是否使用库
-        self.Out_Book_Step = -1 #脱库步数
-        self.Book_Type = 'Local' # 使用本地库还是云库
-        # self.Book_Type = 'Cloud'
-        self.Cloud_Url = 'http://kaijuku.site:5001/sword/q/2286401259/p/1766487673/' # 云库地址，勿外传
+        self.Use_Book = True
+        self.Out_Book_Step = -1
 
         self.Use_EngineHelp = True # 使用引擎辅助计算
         self.EngineSearchThreads = 32 # 引擎线程数

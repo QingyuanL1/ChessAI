@@ -400,49 +400,29 @@ class PVE:
                     self.book_msg = "未启用历史局面缓存..."
                 if self.config.resource.Use_Book and (
                         self.config.resource.Out_Book_Step == -1 or self.env.board.turns <= self.config.resource.Out_Book_Step):
-                    if self.config.resource.Book_Type == 'Local':
-                        BookResult = self.bookhandler.query(BookHandler.fixFen(self.env.get_state()), ai_move_first)
-                        BookResult.sort(key=cmp_to_key(Bookcmp), reverse=1)
-
-                    else:
-                        time.sleep(3)
-                        BookResult = BookHandler.get_cloud_move(BookHandler.fixFen(self.env.get_state()), ai_move_first,
-                                                                self.config.resource.Cloud_Url)
+                    BookResult = self.bookhandler.query(BookHandler.fixFen(self.env.get_state()), ai_move_first)
+                    BookResult.sort(key=cmp_to_key(Bookcmp), reverse=1)
                     if len(BookResult) > 0:
                         self.book_msg = '命中历史局面!'
                     else:
                         self.book_msg = '未命中历史局面!'
 
-                # for i in BookResult:
-                #     print(str(i))
+
                 action = None
                 self.BsetMove = []
                 if not self.config.resource.Use_EngineHelp:
                     action, policy = self.ai.action(state, self.env.num_halfmoves, no_act)
                     if not self.env.red_to_move:
                         action = flip_move(action)
-                if self.config.resource.Use_Book and self.config.resource.Book_Type == 'Local' and len(BookResult) > 0:
+                if self.config.resource.Use_Book and len(BookResult) > 0:
                     for i in range(min(3, len(BookResult))):
                         self.BsetMove.append(BookResult[i].move)
                     self.info_msg = '从历史局面获取最优走法:'
-                    print("使用库1:", str(BookResult[0].move))
+                    print("使用开局库:", str(BookResult[0].move))
                     x0, y0, x1, y1 = BookHandler.Move2Point(BookResult[0].move)
                     action = str(x0) + str(y0) + str(x1) + str(y1)
                     self.history.append(action)
                     self.moves_history.append(self.TranslateMove(action))
-                    # print(self.moves_history)
-                elif self.config.resource.Use_Book and self.config.resource.Book_Type == 'Cloud' and len(
-                        BookResult) > 0:
-                    self.info_msg = '从历史局面获取最优走法:'
-                    random.shuffle(BookResult)
-                    for i in range(min(3, len(BookResult))):
-                        self.BsetMove.append(BookResult[i])
-                    print("使用库2:", str(BookResult[0]))
-                    x0, y0, x1, y1 = BookHandler.Move2Point(BookResult[0])
-                    action = str(x0) + str(y0) + str(x1) + str(y1)
-                    self.history.append(action)
-                    self.moves_history.append(self.TranslateMove(action))
-                    # print(self.moves_history)
                 elif self.config.resource.Use_EngineHelp:
                     action = Engine_Manager.get_uci_move(self.config.resource.engine_path,
                                                          self.moves_history,
@@ -451,20 +431,18 @@ class PVE:
                                                          self.config.resource.EngineSearchTime + random.randint(5, 10))
                     self.info_msg = "AlphaZero搜索的最优走法:"
                     self.BsetMove.append(action)
-                    # print(action)
+
                     print("使用AI搜索: ", action)
                     x0, y0, x1, y1 = BookHandler.Move2Point(action)
                     action = str(x0) + str(y0) + str(x1) + str(y1)
                     self.history.append(action)
                     self.moves_history.append(self.TranslateMove(action))
-                    # print(self.moves_history)
                 else:
                     self.BsetMove.append(action)
                     self.info_msg = "MCTS搜索的最优走法:"
                     print("使用MCTS搜索: ", action)
                     self.history.append(action)
                     self.moves_history.append(self.TranslateMove(action))
-                    # print(self.moves_history)
                 if action is None:
                     return
                 if not self.config.resource.Use_EngineHelp:
