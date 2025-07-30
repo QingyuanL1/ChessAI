@@ -151,8 +151,8 @@ class RookMoveStrategy(MoveStrategy):
                 if target_piece:
                     if target_piece.color != board.get_piece(pos).color:
                         moves.append(Move(pos, new_pos))
-                    break
-                else:
+            break
+        else:
                     moves.append(Move(pos, new_pos))
                     
         return moves
@@ -275,7 +275,7 @@ class KingMoveStrategy(MoveStrategy):
                     if target_piece.type == PieceType.KING and target_piece.color == Color.RED:
                         moves.append(Move(pos, target_pos))
                     break
-                    
+        
         return moves
 
 class AdvisorMoveStrategy(MoveStrategy):
@@ -359,7 +359,7 @@ class ChessBoard:
     def can_move_to(self, pos: Position, color: Color) -> bool:
         if not self.is_valid_position(pos):
             return False
-        
+    
         piece = self.get_piece(pos)
         return piece is None or piece.color != color
     
@@ -569,7 +569,7 @@ def will_check_or_catch(from_state: str, to_state: str) -> bool:
         
         if not from_red_king or not from_black_king or not to_red_king or not to_black_king:
             return False
-        
+
         to_moves = to_board.get_legal_moves(Color.BLACK)
         for move in to_moves:
             if move.to_pos == to_red_king:

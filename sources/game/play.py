@@ -284,20 +284,19 @@ class PVE:
                 elif event.type == VIDEORESIZE:
                     pass
                 elif event.type == MOUSEBUTTONDOWN:
-                    if human_first == self.env.red_to_move:
-                        mouse_x, mouse_y = pygame.mouse.get_pos()
-                        # print(mouse_x, mouse_y)
-                        if self.hittest(mouse_x, mouse_y, (10, 95, 120, 40)):
-                            print("悔棋!\n")
-                            undo_move()
-                        elif self.hittest(mouse_x, mouse_y, (140, 95, 140, 40)):
-                            print("打印棋谱!")
-                            self.env.board.print_record()
-                            game_id = datetime.now().strftime("%Y%m%d-%H%M%S")
-                            path = os.path.join(self.config.resource.play_record_dir,
-                                                self.config.resource.play_record_filename_tmpl % game_id)
-                            self.env.board.save_record(path)
-                        else:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    # 按钮点击检测 - 不受走棋轮次限制
+                    if self.hittest(mouse_x, mouse_y, (10, self.height + 95, 120, 40)):
+                        print("悔棋!\n")
+                        undo_move()
+                    elif self.hittest(mouse_x, mouse_y, (140, self.height + 95, 140, 40)):
+                        print("打印棋谱!")
+                        self.env.board.print_record()
+                        game_id = datetime.now().strftime("%Y%m%d-%H%M%S")
+                        path = os.path.join(self.config.resource.play_record_dir,
+                                            self.config.resource.play_record_filename_tmpl % game_id)
+                        self.env.board.save_record(path)
+                    elif human_first == self.env.red_to_move:
                             pressed_array = pygame.mouse.get_pressed()
                             for index in range(len(pressed_array)):
                                 if index == 0 and pressed_array[index]:

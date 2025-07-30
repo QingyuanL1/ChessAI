@@ -10708,3 +10708,97 @@
 2025-07-29 22:37:36,543@sources.game.play INFO # state = 2emsmekr/9/2k6/p1p1p1p1p/9/2P3P2/P3c3P/2K3C2/4M4/1REMS1E1R
 2025-07-29 22:38:01,122@sources.game.play INFO # state = 2emsmek1/8r/2k6/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/1REMS1E1R
 2025-07-29 22:38:27,495@sources.game.play INFO # state = 2emsmek1/5r3/2k6/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/1REMS1ER1
+2025-07-29 22:39:26,229@sources.game.play INFO # state = 2emsmek1/9/1Rk2r3/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/2EMS1ER1
+2025-07-29 22:39:55,299@sources.game.play INFO # state = 2emsm1R1/9/1Rk1er3/p1p1p1p1p/9/2P3P2/P3K3P/6C2/4M4/2EMS1E2
+2025-07-29 22:40:44,418@sources.game.play INFO # state = 2emsm1R1/9/1Rk1e4/p1p1p1p1p/3K5/2P3P2/P7P/5rC2/4M4/2EMS1E2
+2025-07-29 22:41:18,367@sources.game.play INFO # state = 2emsm1R1/9/1Rk1e4/p3p1p1p/2pK5/2P3P2/P7P/5MC2/9/2EMS1E2
+2025-07-29 22:41:42,034@sources.game.play INFO # state = 2emsmeR1/9/1RK6/p3p1p1p/2p6/2P3P2/P7P/5MC2/9/2EMS1E2
+2025-07-29 22:41:50,297@sources.game.play INFO # state = 2e1smR2/4m4/1RK6/p3p1p1p/2p6/2P3P2/P7P/5MC2/9/2EMS1E2
+2025-07-29 22:42:07,496@sources.game.play INFO # state = 4smR2/1R2m4/2K1e4/p3p1p1p/2p6/2P3P2/P7P/5MC2/9/2EMS1E2
+2025-07-29 22:42:09,044@sources.game.play INFO # state = 4smR2/1R2m4/2K1e4/p3p1p1p/2p6/2P3P2/P7P/5MC2/9/2EMS1E2
+2025-07-30 00:07:40,590@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 00:07:40,989@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 00:07:40,989@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 00:07:40,989@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 00:07:40,989@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 00:07:41,822@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 00:07:43,028@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 00:07:43,621@__main__ INFO # AI move first : False
+2025-07-30 00:07:43,866@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-30 00:07:54,322@sources.game.play INFO # state = rkemsmekr/9/7c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RcEMSMEKR
+2025-07-30 00:08:31,747@sources.game.play INFO # state = rkemsmekr/9/4c4/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/1REMSMEKR
+2025-07-30 00:09:04,536@sources.game.play INFO # state = rkemsmekr/9/9/p1p1p1p1p/9/9/P1P1c1P1P/1C2C4/9/1REMSMEKR
+2025-07-30 00:09:38,913@sources.game.play INFO # state = r1emsmekr/9/2k6/p1p1C1p1p/9/9/P1P1c1P1P/1C7/9/1REMSMEKR
+2025-07-30 00:09:55,658@sources.game.play INFO # state = 1remsmekr/9/2k6/p1p3p1p/9/4C4/P1P1c1P1P/1C7/9/1REMSMEKR
+2025-07-30 00:10:27,645@sources.game.play INFO # state = 1remsmekr/9/2k6/p1p3p1p/9/4C4/c1P3P1P/1C4K2/9/1REMSME1R
+2025-07-30 00:10:57,675@sources.game.play INFO # state = 1rem1mekr/4s4/2k6/p1p3p1p/9/4C4/c1P3P1P/4C1K2/9/1REMSME1R
+2025-07-30 00:10:57,830@sources.game.play INFO # Winner is Winner.black !!!
+2025-07-30 00:16:08,732@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 00:16:08,883@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 00:16:08,883@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 00:16:08,883@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 00:16:08,883@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 00:16:09,194@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 00:16:09,821@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 00:16:10,140@__main__ INFO # AI move first : False
+2025-07-30 00:16:10,328@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-30 00:16:16,315@sources.game.play INFO # state = rkemsmekr/9/7c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RcEMSMEKR
+2025-07-30 00:17:32,611@sources.game.play INFO # state = rkemsmekr/9/9/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/1REMSMEcR
+2025-07-30 00:18:41,856@sources.game.play INFO # state = rkemsmekr/9/9/p1p3p1p/4p4/9/P1P1P1P1P/1C5C1/9/1REMSMER1
+2025-07-30 00:19:02,109@sources.game.play INFO # state = rkemsmekr/9/9/p1p3p1p/9/4p4/P1P1P1P1P/1C2C4/9/1REMSMER1
+2025-07-30 00:19:35,548@sources.game.play INFO # state = rkem1mekr/4s4/9/p1p3p1p/9/4C4/P1P1P1P1P/1C7/9/1REMSMER1
+2025-07-30 00:20:34,324@sources.game.play INFO # state = rkem1mekr/9/4s4/p1p3p1p/9/4C4/P1P1P1P1P/5C3/9/1REMSMER1
+2025-07-30 00:21:34,461@sources.game.play INFO # state = rkem1mekr/9/5s1R1/p1p3p1p/9/4C4/P1P1P1P1P/5C3/9/1REMSME2
+2025-07-30 00:21:34,609@sources.game.play INFO # Winner is Winner.black !!!
+2025-07-30 01:04:04,744@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 01:04:04,942@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:04:04,942@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:04:04,943@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:04:04,943@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:04:05,449@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 01:04:06,252@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 01:04:34,394@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 01:04:34,538@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:04:34,538@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:04:34,538@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:04:34,538@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:04:34,920@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 01:04:35,671@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 01:05:30,379@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 01:05:30,555@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:05:30,555@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:05:30,555@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:05:30,555@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:05:31,080@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 01:05:31,837@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 01:05:32,243@__main__ INFO # AI move first : False
+2025-07-30 01:05:32,484@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-30 01:05:39,282@sources.game.play INFO # state = rkem1mekr/4s4/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RKEMSMEKR
+2025-07-30 01:06:57,468@sources.game.play INFO # state = rkem1mekr/9/1c2s2c1/p1p1p1p1p/9/9/P1P1P1P1P/4C2C1/9/RKEMSMEKR
+2025-07-30 01:10:42,319@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 01:10:42,481@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:10:42,481@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:10:42,481@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:10:42,481@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:10:42,828@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 01:10:43,478@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 01:10:43,820@__main__ INFO # AI move first : False
+2025-07-30 01:10:44,032@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-30 01:10:59,498@sources.game.play INFO # state = rkemsmekr/9/4c2c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RKEMSMEKR
+2025-07-30 01:13:51,132@tensorflow DEBUG # Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2025-07-30 01:13:51,313@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:13:51,313@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:13:51,313@h5py._conv DEBUG # Creating converter from 7 to 5
+2025-07-30 01:13:51,313@h5py._conv DEBUG # Creating converter from 5 to 7
+2025-07-30 01:13:51,716@jax._src.path DEBUG # etils.epath was not found. Using pathlib for file I/O.
+2025-07-30 01:13:52,508@numexpr.utils INFO # NumExpr defaulting to 8 threads.
+2025-07-30 01:13:52,909@__main__ INFO # AI move first : False
+2025-07-30 01:13:53,213@h5py._conv DEBUG # Creating converter from 3 to 5
+2025-07-30 01:14:21,506@sources.game.play INFO # state = rkemsmekr/9/4c2c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RKEMSMEKR
+2025-07-30 01:23:53,331@sources.utils.modelReaderWriter DEBUG # start reload the best model if changed
+2025-07-30 01:23:53,431@sources.utils.modelReaderWriter DEBUG # the best model is not changed
+2025-07-30 01:45:43,735@sources.utils.modelReaderWriter DEBUG # start reload the best model if changed
+2025-07-30 01:45:43,919@sources.utils.modelReaderWriter DEBUG # the best model is not changed
+2025-07-30 02:03:52,648@sources.utils.modelReaderWriter DEBUG # start reload the best model if changed
+2025-07-30 02:03:52,798@sources.game.play INFO # Winner is Winner.black !!!
+2025-07-30 02:03:52,857@sources.utils.modelReaderWriter DEBUG # the best model is not changed

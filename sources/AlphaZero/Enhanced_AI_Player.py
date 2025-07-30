@@ -568,7 +568,7 @@ class Enhanced_AI_Player:
         else:
             ret = np.power(policy, 1/tau)
             ret = ret / np.sum(ret)
-            return ret
+            return ret 
     
     # 内存管理接口
     def get_memory_report(self) -> str:
