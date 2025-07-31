@@ -62,8 +62,13 @@ def start():
         config.trainsetting.light = False
         PlayConfig = PVEConfig()
         PlayConfig.update_play_config(config.play)
-        logger.info(f"AI move first : {args.ai_move_first}")
-        play.start(config, not args.ai_move_first)
+        
+        if args.ai_move_first:
+            logger.info("命令行指定：AI先手")
+            play.start(config, False)  # =False
+        else:
+            logger.info("启动先手选择界面")
+            play.start(config, None)   #
     elif args.cmd == 'play_to_self':
         from sources.game import PlayToSelf
         PlayConfig = PVEConfig()

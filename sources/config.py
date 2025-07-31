@@ -1,6 +1,7 @@
 import os
 import getpass
 import config as cfg
+import platform
 
 def _project_dir():
     d = os.path.dirname
@@ -9,6 +10,25 @@ def _project_dir():
 
 def _data_dir():
     return os.path.join(_project_dir(), "data")
+
+def _get_engine_path():
+    """根据操作系统自动选择合适的皮卡鱼引擎"""
+    project_dir = _project_dir()
+    engine_dir = os.path.join(project_dir, 'data', 'Engine')
+    
+    system = platform.system().lower()
+    if system == 'windows':
+        # Windows系统优先使用AVX512版本，然后是VNNI512版本
+        candidates = ['pikafish-avx512.exe', 'pikafish-vnni512.exe']
+        for candidate in candidates:
+            engine_path = os.path.join(engine_dir, candidate)
+            if os.path.exists(engine_path):
+                return engine_path
+        # 如果没有找到优化版本，使用基础版本
+        return os.path.join(engine_dir, 'pikafish.exe')
+    else:
+        # macOS/Linux系统使用无扩展名版本
+        return os.path.join(engine_dir, 'pikafish')
 
 class Config:
     def __init__(self):
@@ -118,7 +138,7 @@ class ResourceConfig:
         self.model_best_config_path = os.path.join(self.model_dir, "model_best_config.json")
         self.model_best_weight_path = os.path.join(self.model_dir, "model_best_weight.h5")
         self.eleeye_path = os.path.join(self.model_dir, 'eleeye.exe')
-        self.engine_path = os.path.join(self.project_dir, 'data', 'Engine', 'pikafish')
+        self.engine_path = _get_engine_path()
 
         self.next_generation_model_dir = os.path.join(self.model_dir, "next_generation")
         self.next_generation_config_path = os.path.join(self.next_generation_model_dir, "next_generation_config.json")
@@ -142,10 +162,10 @@ class ResourceConfig:
         self.Use_Book = True
         self.Out_Book_Step = -1
 
-        self.Use_EngineHelp = True # 使用引擎辅助计算
-        self.EngineSearchThreads = 32 # 引擎线程数
-        self.EngineSearchTime = 5 # 引擎时间
-        self.book_path = os.path.join(self.project_dir, 'data', 'Books', 'BOOK1.obk') # 本地库位置
+        self.Use_EngineHelp = True 
+        self.EngineSearchThreads = 32 
+        self.EngineSearchTime = 5 
+        self.book_path = os.path.join(self.project_dir, 'data', 'Books', 'BOOK1.obk') 
 
     def create_directories(self):
         dirs = [self.project_dir, self.data_dir, self.model_dir, self.play_data_dir, self.log_dir,
