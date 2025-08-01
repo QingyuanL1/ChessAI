@@ -87,22 +87,22 @@ class ImageManager:
                     "board": "Board.GIF",
                     "pieces": {
                         "red": {
-                            "rook": ["RR.GIF", "RRS.GIF"],
-                            "knight": ["RN.GIF", "RNS.GIF"],
-                            "cannon": ["RC.GIF", "RCS.GIF"],
-                            "king": ["RK.GIF", "RKS.GIF"],
-                            "elephant": ["RB.GIF", "RBS.GIF"],
-                            "mandarin": ["RA.GIF", "RAS.GIF"],
-                            "pawn": ["RP.GIF", "RPS.GIF"]
+                            "rook": ["RR.gif", "RRS.gif"],
+                            "knight": ["RN.gif", "RNS.gif"],
+                            "cannon": ["RC.gif", "RCS.gif"],
+                            "king": ["RK.gif", "RKS.gif"],
+                            "elephant": ["RB.gif", "RBS.gif"],
+                            "mandarin": ["RA.gif", "RAS.gif"],
+                            "pawn": ["RP.gif", "RPS.gif"]
                         },
                         "black": {
-                            "rook": ["BR.GIF", "BRS.GIF"],
-                            "knight": ["BN.GIF", "BNS.GIF"],
-                            "cannon": ["BC.GIF", "BCS.GIF"],
-                            "king": ["BK.GIF", "BKS.GIF"],
-                            "elephant": ["BB.GIF", "BBS.GIF"],
-                            "mandarin": ["BA.GIF", "BAS.GIF"],
-                            "pawn": ["BP.GIF", "BPS.GIF"]
+                            "rook": ["BR.gif", "BRS.gif"],
+                            "knight": ["BN.gif", "BNS.gif"],
+                            "cannon": ["BC.gif", "BCS.gif"],
+                            "king": ["BK.gif", "BKS.gif"],
+                            "elephant": ["BB.gif", "BBS.gif"],
+                            "mandarin": ["BA.gif", "BAS.gif"],
+                            "pawn": ["BP.gif", "BPS.gif"]
                         }
                     }
                 }
